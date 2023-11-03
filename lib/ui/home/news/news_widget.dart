@@ -3,39 +3,48 @@ import 'package:flutter/material.dart';
 
 import '../../../modal/newsResponse/news.dart';
 
-
 class NewsWidget extends StatelessWidget {
   News news;
-  NewsWidget(this.news,{super.key});
+
+  NewsWidget(this.news, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.circular(18),
-              child:
-              CachedNetworkImage(imageUrl:news.urlToImage??"",height: 220,
-                width: double.infinity,
-                fit: BoxFit.fill,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    CircularProgressIndicator(value: downloadProgress.progress),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              ),
+            borderRadius: BorderRadius.circular(18),
+            child: CachedNetworkImage(
+              imageUrl: news.urlToImage ?? "",
+              height: 220,
+              width: double.infinity,
+              fit: BoxFit.fill,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress)),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
           ),
-          Text(news.author?? "",
-          textAlign: TextAlign.start,),
-          Text(news.title??"",
+          Text(
+            news.author ?? "",
             textAlign: TextAlign.start,
-            style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
-          ),),
-          Text(news.publishedAt??"",
-            textAlign: TextAlign.end,),
+          ),
+          Text(
+            news.title ?? "",
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Text(
+            news.publishedAt ?? "",
+            textAlign: TextAlign.end,
+          ),
         ],
       ),
     );
